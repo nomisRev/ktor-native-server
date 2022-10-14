@@ -41,11 +41,13 @@ jobs:
 
       - name: assemble
         uses: gradle/gradle-build-action@v2.2.0
-        run: ./gradlew assemble
+        with:
+          arguments: assemble
 
       - name: build
         uses: gradle/gradle-build-action@v2.2.0
-        run: ./gradlew build
+        with:
+          arguments: build
 
       - name: Upload test reports
         uses: actions/upload-artifact@v3
