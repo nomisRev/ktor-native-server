@@ -31,7 +31,7 @@ jobs:
         id: set-up-homebrew
 
       - name: Install libpq
-      - run: brew install libpq
+        run: brew install libpq
 
       - name: Setup Java
         uses: actions/setup-java@v3
