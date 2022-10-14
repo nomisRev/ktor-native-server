@@ -30,6 +30,9 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
         id: set-up-homebrew
 
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
       - name: Install libpq
         run: brew install libpq
 
