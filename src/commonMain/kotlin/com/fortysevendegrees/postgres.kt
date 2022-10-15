@@ -4,15 +4,7 @@ import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
 import arrow.fx.coroutines.Resource
 import com.fortysevendegrees.sqldelight.NativePostgres
 
-data class PostgresConfig(
-  val host: String = "localhost",
-  val port: Int = 5432,
-  val user: String = "postgres",
-  val databaseName: String = "postgres",
-  val password: String = "password",
-)
-
-fun postgres(config: PostgresConfig): Resource<NativePostgres> =
+fun postgres(config: Env.Postgres): Resource<NativePostgres> =
   Resource({
     PostgresNativeDriver(
       host = config.host,

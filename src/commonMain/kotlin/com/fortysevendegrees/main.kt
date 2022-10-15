@@ -6,12 +6,14 @@ import io.ktor.server.cio.CIO
 import io.ktor.server.routing.routing
 import kotlinx.coroutines.awaitCancellation
 
-val config = PostgresConfig("localhost", 5432, "postgres", "postgres", "password")
-
 fun main() = SuspendApp {
+  val env = Env()
   resource {
-    val database = postgres(config).bind()
-    val engine = server(CIO, port = 8080).bind()
+    val database = postgres(env.postgres).bind()
+    val engine = server(CIO,
+      port = env.http.port,
+      host = env.http.host
+    ).bind()
     engine.application.routing {
       ping()
     }
