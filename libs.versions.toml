@@ -53,7 +53,6 @@ kotest = [
     "kotest-assertionsCore",
     "kotest-frameworkEngine",
     "kotest-property",
-    "kotest-runnerJUnit5",
 ]
 
 [plugins]
