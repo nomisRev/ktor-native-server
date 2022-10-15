@@ -11,3 +11,8 @@ insertAndGetId:
 INSERT INTO users(email, username, hashed_password, bio, image)
 VALUES (:email, :username, :hashed_password, :bio, :image)
 RETURNING id;
+
+selectById:
+SELECT email, username, hashed_password, bio, image
+FROM users
+WHERE id = :id;
