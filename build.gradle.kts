@@ -33,7 +33,7 @@ fun KotlinNativeTargetWithHostTests.setup() =
   }
 
 kotlin {
-  linuxX64 { setup() }
+  // linuxX64 { setup() }
   macosX64 { setup() }
   macosArm64 { setup() }
   
