@@ -42,7 +42,6 @@ ktor-server = [
     "ktor-server-core",
     "ktor-server-cors",
     "ktor-server-content-negotiation",
-    "ktor-server-defaultheaders",
     "ktor-server-cio",
     "ktor-server-auth",
 ]
