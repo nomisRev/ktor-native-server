@@ -8,5 +8,3 @@ import io.ktor.server.routing.get
 
 fun Routing.ping(): Route =
   get("/ping") { call.respond("pong") }
-
-  

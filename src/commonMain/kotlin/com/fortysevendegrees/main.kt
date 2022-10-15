@@ -9,6 +9,7 @@ import kotlinx.coroutines.awaitCancellation
 fun main() = SuspendApp {
   val env = Env()
   resource {
+    @Suppress("UnusedPrivateMember")
     val database = postgres(env.postgres).bind()
     val engine = server(CIO,
       port = env.http.port,
