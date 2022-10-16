@@ -28,7 +28,7 @@ class PingSpec : StringSpec({
   
   "Postgres test" {
     postgres(Env.Postgres()).use { sqlDelight ->
-      val userId = sqlDelight.usersQueries.insertAndGetId(
+      sqlDelight.usersQueries.insert(
         "my-email@gmail.com",
         "my-username",
         "non-encrypted".encodeToByteArray(),
@@ -36,7 +36,7 @@ class PingSpec : StringSpec({
         "www.gravitar.com/my-username"
       ).executeAsOne()
       
-      val selecyById = sqlDelight.usersQueries.selectById(userId).executeAsOne()
+      val selecyById = sqlDelight.usersQueries.selectByUsername(username).executeAsOne()
       
       assertSoftly {
         selecyById.email shouldBe email

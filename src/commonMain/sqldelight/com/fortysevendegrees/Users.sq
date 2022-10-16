@@ -7,6 +7,10 @@ CREATE TABLE IF NOT EXISTS users(
     image VARCHAR(255) NOT NULL DEFAULT ''
 );
 
+insert:
+INSERT INTO users(email, username, hashed_password, bio, image)
+VALUES (:email, :username, :hashed_password, :bio, :image);
+
 insertAndGetId:
 INSERT INTO users(email, username, hashed_password, bio, image)
 VALUES (:email, :username, :hashed_password, :bio, :image)
@@ -16,3 +20,8 @@ selectById:
 SELECT email, username, hashed_password, bio, image
 FROM users
 WHERE id = :id;
+
+selectByUsername:
+SELECT email, username, bio, image
+FROM users
+WHERE username = :username;
