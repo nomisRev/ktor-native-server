@@ -35,7 +35,7 @@ fun KotlinNativeTargetWithHostTests.setup() =
 kotlin {
   // linuxX64 { setup() }
   macosX64 { setup() }
-  macosArm64 { setup() }
+  // macosArm64 { setup() }
   
   sourceSets {
     val commonMain by getting {
