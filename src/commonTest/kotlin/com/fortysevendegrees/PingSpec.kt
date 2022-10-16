@@ -29,13 +29,12 @@ class PingSpec : StringSpec({
   val image = "www.gravitar.com/my-username"
   
   "Postgres construct" {
-    val config = Env.Postgres()
     val driver = PostgresNativeDriver(
-      host = config.host,
-      port = config.port,
-      user = config.user,
-      database = config.databaseName,
-      password = config.password
+      host = POSTGRES_HOST,
+      port = POSTGRES_PORT,
+      user = POSTGRES_USER,
+      database = POSTGRES_DB_NAME,
+      password = POSTGRES_PW
     )
     try {
       NativePostgres(driver)
@@ -46,13 +45,12 @@ class PingSpec : StringSpec({
   }
   
   "Postgres insert" {
-    val config = Env.Postgres()
     val driver = PostgresNativeDriver(
-      host = config.host,
-      port = config.port,
-      user = config.user,
-      database = config.databaseName,
-      password = config.password
+      host = POSTGRES_HOST,
+      port = POSTGRES_PORT,
+      user = POSTGRES_USER,
+      database = POSTGRES_DB_NAME,
+      password = POSTGRES_PW
     )
     try {
       val postgres = NativePostgres(driver)
