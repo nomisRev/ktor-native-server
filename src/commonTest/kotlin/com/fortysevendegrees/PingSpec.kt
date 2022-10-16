@@ -26,7 +26,7 @@ class PingSpec : StringSpec({
   val bio = "my-bio"
   val image = "www.gravitar.com/my-username"
   
-  "Postgres test".config(enabled = false) {
+  "Postgres test" {
     postgres(Env.Postgres()).use { sqlDelight ->
       val userId = sqlDelight.usersQueries.insertAndGetId(
         "my-email@gmail.com",
