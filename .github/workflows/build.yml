@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xmx5g -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,15 +45,8 @@ jobs:
           distribution: 'adopt'
           java-version: 11
 
-      - name: assemble
-        uses: gradle/gradle-build-action@v2.3.2
-        with:
-          arguments: assemble
-
       - name: build
-        uses: gradle/gradle-build-action@v2.3.2
-        with:
-          arguments: build
+        run: ./gradlew build
 
       - name: Upload test reports
         uses: actions/upload-artifact@v3
