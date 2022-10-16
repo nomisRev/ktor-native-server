@@ -22,6 +22,6 @@ FROM users
 WHERE id = :id;
 
 selectByUsername:
-SELECT email, username, bio, image
+SELECT email, username, hashed_password, bio, image
 FROM users
 WHERE username = :username;

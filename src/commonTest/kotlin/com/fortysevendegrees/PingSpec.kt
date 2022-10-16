@@ -29,12 +29,12 @@ class PingSpec : StringSpec({
   "Postgres test" {
     postgres(Env.Postgres()).use { sqlDelight ->
       sqlDelight.usersQueries.insert(
-        "my-email@gmail.com",
-        "my-username",
-        "non-encrypted".encodeToByteArray(),
-        "my-bio",
-        "www.gravitar.com/my-username"
-      ).executeAsOne()
+        email = "my-email@gmail.com",
+        username = "my-username",
+        hashed_password = "non-encrypted".encodeToByteArray(),
+        bio = "my-bio",
+        image = "www.gravitar.com/my-username"
+      )
       
       val selecyById = sqlDelight.usersQueries.selectByUsername(username).executeAsOne()
       
