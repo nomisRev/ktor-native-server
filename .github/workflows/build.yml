@@ -39,7 +39,7 @@ jobs:
           java-version: 11
 
       - name: Setup Postgres
-        uses: ikalnytskyi/action-setup-postgres@v3
+        uses: ankane/setup-postgres@v1
 
       - name: build
         run: ./gradlew build
