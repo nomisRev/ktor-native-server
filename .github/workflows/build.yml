@@ -43,12 +43,12 @@ jobs:
           java-version: 11
 
       - name: assemble
-        uses: gradle/gradle-build-action@v2.2.0
+        uses: gradle/gradle-build-action@v2.3.2
         with:
           arguments: assemble
 
       - name: build
-        uses: gradle/gradle-build-action@v2.2.0
+        uses: gradle/gradle-build-action@v2.3.2
         with:
           arguments: build
 
