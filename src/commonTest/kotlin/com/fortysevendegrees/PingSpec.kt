@@ -44,4 +44,28 @@ class PingSpec : StringSpec({
       driver.close()
     }
   }
+  
+  "Postgres insert" {
+    val config = Env.Postgres()
+    val driver = PostgresNativeDriver(
+      host = config.host,
+      port = config.port,
+      user = config.user,
+      database = config.databaseName,
+      password = config.password
+    )
+    try {
+      val postgres = NativePostgres(driver)
+      NativePostgres.Schema.migrate(driver, 0, NativePostgres.Schema.version)
+      postgres.usersQueries.insert(
+        email = email,
+        username = username,
+        hashed_password = pw.encodeToByteArray(),
+        bio = bio,
+        image = image
+      )
+    } finally {
+      driver.close()
+    }
+  }
 })
