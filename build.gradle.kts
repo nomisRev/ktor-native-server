@@ -37,10 +37,7 @@ println(System.getProperty("os.name"))
 kotlin {
   if (System.getenv("CI").toBoolean()) {
     when(System.getProperty("os.name")) {
-      "Mac OS X" -> {
-        macosX64 { setup() }
-        macosArm64 { setup() }
-      }
+      "Mac OS X" -> macosX64 { setup() }
       "Linux" -> linuxX64 { setup() }
       null -> throw GradleException("null os.name.")
     }
