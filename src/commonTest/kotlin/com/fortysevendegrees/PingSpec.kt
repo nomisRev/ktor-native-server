@@ -1,5 +1,7 @@
 package com.fortysevendegrees
 
+import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
+import com.fortysevendegrees.sqldelight.NativePostgres
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -26,25 +28,20 @@ class PingSpec : StringSpec({
   val bio = "my-bio"
   val image = "www.gravitar.com/my-username"
   
-  "Postgres test" {
-    postgres(Env.Postgres()).use { sqlDelight ->
-      sqlDelight.usersQueries.insert(
-        email = "my-email@gmail.com",
-        username = "my-username",
-        hashed_password = "non-encrypted".encodeToByteArray(),
-        bio = "my-bio",
-        image = "www.gravitar.com/my-username"
-      )
-      
-      val selecyById = sqlDelight.usersQueries.selectByUsername(username).executeAsOne()
-      
-      assertSoftly {
-        selecyById.email shouldBe email
-        selecyById.username shouldBe username
-        selecyById.hashed_password.decodeToString() shouldBe pw
-        selecyById.bio shouldBe bio
-        selecyById.image shouldBe image
-      }
+  "Postgres construct" {
+    val config = Env.Postgres()
+    val driver = PostgresNativeDriver(
+      host = config.host,
+      port = config.port,
+      user = config.user,
+      database = config.databaseName,
+      password = config.password
+    )
+    try {
+      NativePostgres(driver)
+      NativePostgres.Schema.migrate(driver, 0, NativePostgres.Schema.version)
+    } finally {
+      driver.close()
     }
   }
 })
