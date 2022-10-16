@@ -16,5 +16,5 @@ fun postgres(config: Env.Postgres): Resource<NativePostgres> =
   }) { driver, _ -> driver.close() }
     .map { driver ->
       NativePostgres(driver)
-        .also { NativePostgres.Schema.create(driver) }
+        .also { NativePostgres.Schema.migrate(driver, 0, NativePostgres.Schema.version) }
     }

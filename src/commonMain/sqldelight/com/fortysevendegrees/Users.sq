@@ -9,11 +9,11 @@ CREATE TABLE IF NOT EXISTS users(
 
 insert:
 INSERT INTO users(email, username, hashed_password, bio, image)
-VALUES (:email, :username, :hashed_password, :bio, :image);
+VALUES (?, ?, ?, ?, ?);
 
 insertAndGetId:
 INSERT INTO users(email, username, hashed_password, bio, image)
-VALUES (:email, :username, :hashed_password, :bio, :image)
+VALUES (?, ?, ?, ?, ?)
 RETURNING id;
 
 selectById:
