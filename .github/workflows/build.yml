@@ -40,6 +40,8 @@ jobs:
 
       - name: Setup Postgres
         uses: ankane/setup-postgres@v1
+        with:
+          database: postgres
 
       - name: build
         run: ./gradlew build
