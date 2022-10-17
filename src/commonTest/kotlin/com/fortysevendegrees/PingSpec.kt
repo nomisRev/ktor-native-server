@@ -38,7 +38,22 @@ class PingSpec : StringSpec({
     )
     try {
       NativePostgres(driver)
-      NativePostgres.Schema.migrate(driver, 0, NativePostgres.Schema.version)
+    } finally {
+      driver.close()
+    }
+  }
+  
+  "Postgres create" {
+    val driver = PostgresNativeDriver(
+      host = POSTGRES_HOST,
+      port = POSTGRES_PORT,
+      user = POSTGRES_USER,
+      database = POSTGRES_DB_NAME,
+      password = POSTGRES_PW
+    )
+    try {
+      NativePostgres(driver)
+      NativePostgres.Schema.create(driver)
     } finally {
       driver.close()
     }
@@ -54,7 +69,6 @@ class PingSpec : StringSpec({
     )
     try {
       val postgres = NativePostgres(driver)
-      NativePostgres.Schema.migrate(driver, 0, NativePostgres.Schema.version)
       postgres.usersQueries.insert(
         email = email,
         username = username,
