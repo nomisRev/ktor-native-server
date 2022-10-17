@@ -1,6 +1,7 @@
 package com.fortysevendegrees
 
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
+import com.fortysevendegrees.sqldelight.NativePostgres
 import kotlin.test.Test
 
 class DriverTest {
@@ -13,10 +14,6 @@ class DriverTest {
       database = "postgres",
       password = "postgres"
     )
-  }
-  
-  @Test
-  fun isRunning() {
-    throw RuntimeException("This test is running")
+    NativePostgres(driver)
   }
 }
