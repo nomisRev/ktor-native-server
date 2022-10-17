@@ -2,26 +2,25 @@ CREATE TABLE IF NOT EXISTS users(
     id BIGSERIAL PRIMARY KEY,
     email VARCHAR(200) NOT NULL UNIQUE,
     username VARCHAR(100) NOT NULL UNIQUE,
-    hashed_password BYTEA NOT NULL,
     bio VARCHAR(1000) NOT NULL DEFAULT '',
     image VARCHAR(255) NOT NULL DEFAULT ''
 );
 
 insert:
-INSERT INTO users(email, username, hashed_password, bio, image)
-VALUES (?, ?, ?, ?, ?);
+INSERT INTO users(email, username, bio, image)
+VALUES (?, ?, ?, ?);
 
 insertAndGetId:
-INSERT INTO users(email, username, hashed_password, bio, image)
-VALUES (?, ?, ?, ?, ?)
+INSERT INTO users(email, username, bio, image)
+VALUES (?, ?, ?, ?)
 RETURNING id;
 
 selectById:
-SELECT email, username, hashed_password, bio, image
+SELECT email, username, bio, image
 FROM users
 WHERE id = :id;
 
 selectByUsername:
-SELECT email, username, hashed_password, bio, image
+SELECT email, username, bio, image
 FROM users
 WHERE username = :username;
