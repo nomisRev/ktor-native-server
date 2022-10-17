@@ -36,14 +36,10 @@ class PingSpec : StringSpec({
       database = POSTGRES_DB_NAME,
       password = POSTGRES_PW
     )
-    try {
-      NativePostgres(driver)
-    } finally {
-      driver.close()
-    }
+    NativePostgres(driver)
   }
   
-  "Postgres create" {
+  "Postgres create".config(enabled = false) {
     val driver = PostgresNativeDriver(
       host = POSTGRES_HOST,
       port = POSTGRES_PORT,
@@ -59,7 +55,7 @@ class PingSpec : StringSpec({
     }
   }
   
-  "Postgres insert" {
+  "Postgres insert".config(enabled = false) {
     val driver = PostgresNativeDriver(
       host = POSTGRES_HOST,
       port = POSTGRES_PORT,
