@@ -14,6 +14,7 @@ class DriverTest {
       database = "postgres",
       password = "postgres"
     )
-    NativePostgres(driver)
+    val postgres = NativePostgres(driver)
+    NativePostgres.Schema.create(driver)
   }
 }
