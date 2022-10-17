@@ -22,6 +22,7 @@ sqldelight {
   database("NativePostgres") {
     dialect(libs.postgres.native.dialect.get())
     packageName = "com.fortysevendegrees.sqldelight"
+    deriveSchemaFromMigrations = true
   }
   linkSqlite = false
 }
@@ -59,8 +60,7 @@ kotlin {
     
     val commonTest by getting {
       dependencies {
-        implementation(libs.bundles.kotest)
-        implementation(libs.ktor.server.tests)
+        implementation(kotlin("test"))
       }
     }
   }
