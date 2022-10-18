@@ -14,12 +14,13 @@ private const val image = "www.gravitar.com/my-username"
 class NativePostgresSpec : StringSpec({
   
   afterTest {
+    val env = Env.Postgres()
     PostgresNativeDriver(
-      host = POSTGRES_HOST,
-      port = POSTGRES_PORT,
-      user = POSTGRES_USER,
-      database = POSTGRES_DB_NAME,
-      password = POSTGRES_PW
+      host = env.host,
+      port = env.port,
+      user = env.user,
+      database = env.databaseName,
+      password = env.password
     ).use { it.execute(null, "DROP TABLE IF EXISTS users;", parameters = 0) }
   }
   

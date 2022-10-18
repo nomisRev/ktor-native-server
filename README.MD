@@ -6,6 +6,7 @@ Libraries used:
  - [Postgres Native SqlDelight](https://github.com/hfhbd/postgres-native-sqldelight)
  - [Arrow](https://arrow-kt.io)
  - [SuspendApp](https://github.com/arrow-kt/suspendapp)
+ - [Kotest](https://kotest.io)
 
 # MacOs
 

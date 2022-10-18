@@ -6,11 +6,11 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 
 private const val PORT: Int = 8080
-const val POSTGRES_HOST: String = "localhost"
-const val POSTGRES_PORT: Int = 5432
-const val POSTGRES_USER: String = "postgres"
-const val POSTGRES_PW: String = "postgres"
-const val POSTGRES_DB_NAME: String = "postgres"
+private const val POSTGRES_HOST: String = "localhost"
+private const val POSTGRES_PORT: Int = 5432
+private const val POSTGRES_USER: String = "postgres"
+private const val POSTGRES_PW: String = "postgres"
+private const val POSTGRES_DB_NAME: String = "postgres"
 private const val AUTH_SECRET: String = "MySuperStrongSecret"
 private const val AUTH_ISSUER: String = "KtorArrowExampleIssuer"
 private const val AUTH_DURATION: Int = 30

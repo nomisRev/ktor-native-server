@@ -6,9 +6,6 @@ import com.fortysevendegrees.sqldelight.NativePostgres
 
 fun postgres(config: Env.Postgres): Resource<NativePostgres> =
   Resource({
-    
-    "INSER INTO".lastIndexOf("RETURNING")
-    
     PostgresNativeDriver(
       host = config.host,
       port = config.port,

@@ -14,7 +14,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
   mavenCentral()
-  mavenLocal()
 }
 
 setupDetekt()
@@ -23,7 +22,6 @@ sqldelight {
   database("NativePostgres") {
     dialect(libs.postgres.native.dialect.get())
     packageName = "com.fortysevendegrees.sqldelight"
-    // deriveSchemaFromMigrations = true
   }
   linkSqlite = false
 }
