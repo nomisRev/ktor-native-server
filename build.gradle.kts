@@ -56,7 +56,8 @@ kotlin {
     
     val commonTest by getting {
       dependencies {
-        implementation(kotlin("test"))
+        implementation(libs.bundles.kotest)
+        implementation(libs.ktor.server.tests)
       }
     }
   }
