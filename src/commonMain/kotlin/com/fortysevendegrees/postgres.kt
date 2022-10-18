@@ -6,6 +6,9 @@ import com.fortysevendegrees.sqldelight.NativePostgres
 
 fun postgres(config: Env.Postgres): Resource<NativePostgres> =
   Resource({
+    
+    "INSER INTO".lastIndexOf("RETURNING")
+    
     PostgresNativeDriver(
       host = config.host,
       port = config.port,
@@ -15,6 +18,7 @@ fun postgres(config: Env.Postgres): Resource<NativePostgres> =
     )
   }) { driver, _ -> driver.close() }
     .map { driver ->
-      NativePostgres(driver)
-        .also { NativePostgres.Schema.migrate(driver, 0, NativePostgres.Schema.version) }
+      NativePostgres(driver).also {
+        NativePostgres.Schema.create(driver).await()
+      }
     }

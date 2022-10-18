@@ -14,6 +14,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
   mavenCentral()
+  mavenLocal()
 }
 
 setupDetekt()
@@ -22,7 +23,7 @@ sqldelight {
   database("NativePostgres") {
     dialect(libs.postgres.native.dialect.get())
     packageName = "com.fortysevendegrees.sqldelight"
-    deriveSchemaFromMigrations = true
+    // deriveSchemaFromMigrations = true
   }
   linkSqlite = false
 }
@@ -33,19 +34,21 @@ fun KotlinNativeTargetWithHostTests.setup() =
     executable { entryPoint = "com.fortysevendegrees.main" }
   }
 
-println(System.getProperty("os.name"))
 
 kotlin {
-  if (System.getenv("CI").toBoolean()) {
-    when(System.getProperty("os.name")) {
-      "Mac OS X" -> macosX64 { setup() }
-      "Linux" -> linuxX64 { setup() }
-      null -> throw GradleException("null os.name.")
+  when (System.getProperty("os.name")) {
+    "Linux" -> linuxX64 { setup() }
+    "Mac OS X" -> when (System.getProperty("os.arch")) {
+      "aarch64" -> {
+        macosArm64 { setup() }
+        tasks.build.get().dependsOn(tasks.getByName("macosArm64Test"))
+      }
+      
+      else -> {
+        macosArm64 { setup() }
+        macosX64 { setup() }
+      }
     }
-  } else {
-    linuxX64 { setup() }
-    macosX64 { setup() }
-    macosArm64 { setup() }
   }
   
   sourceSets {

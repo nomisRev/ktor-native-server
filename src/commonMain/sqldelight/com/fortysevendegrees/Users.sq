@@ -6,10 +6,6 @@ CREATE TABLE IF NOT EXISTS users(
     image VARCHAR(255) NOT NULL DEFAULT ''
 );
 
-insert:
-INSERT INTO users(email, username, bio, image)
-VALUES (?, ?, ?, ?);
-
 insertAndGetId:
 INSERT INTO users(email, username, bio, image)
 VALUES (?, ?, ?, ?)
@@ -19,8 +15,3 @@ selectById:
 SELECT email, username, bio, image
 FROM users
 WHERE id = :id;
-
-selectByUsername:
-SELECT email, username, bio, image
-FROM users
-WHERE username = :username;
