@@ -22,7 +22,7 @@ class NativePostgresSpec : StringSpec({
       password = POSTGRES_PW
     ).use { it.execute(null, "DROP TABLE IF EXISTS users;", parameters = 0) }
   }
-  
+  :
   "Postgres insert" {
     postgres(Env.Postgres()).use { db ->
       val userId = db.usersQueries.insertAndGetId(

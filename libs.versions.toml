@@ -7,7 +7,7 @@ kover = "0.6.1"
 detekt = "1.21.0"
 ktor = "2.1.2"
 sqldelight="2.0.0-alpha04"
-suspendapp="0.3.0"
+suspendapp="0.3.1"
 postgres-native="0.0.3"
 
 [libraries]
