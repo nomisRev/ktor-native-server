@@ -9,8 +9,7 @@ import io.ktor.server.routing.routing
 import io.ktor.server.testing.testApplication
 
 class PingSpec : StringSpec({
-  
-  "ping - pong" {
+  "ping route" {
     testApplication {
       application { routing { ping() } }
       val response = client.get("/ping")

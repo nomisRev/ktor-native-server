@@ -11,30 +11,23 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: password
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+
+    strategy:
+      matrix:
+        os: [ 'macos-latest', 'ubuntu-latest' ]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
       - name: Setup Homebrew
         uses: Homebrew/actions/setup-homebrew@master
         id: set-up-homebrew
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
 
       - name: Install libpq
         run: brew install libpq
@@ -44,6 +37,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
+
+      - name: Setup Postgres
+        uses: ikalnytskyi/action-setup-postgres@v3
 
       - name: build
         run: ./gradlew build

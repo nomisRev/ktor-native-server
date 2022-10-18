@@ -14,4 +14,8 @@ fun postgres(config: Env.Postgres): Resource<NativePostgres> =
       password = config.password
     )
   }) { driver, _ -> driver.close() }
-    .map { NativePostgres(it) }
+    .map { driver ->
+      NativePostgres(driver).also {
+        NativePostgres.Schema.create(driver).await()
+      }
+    }

@@ -32,10 +32,15 @@ fun KotlinNativeTargetWithHostTests.setup() =
     executable { entryPoint = "com.fortysevendegrees.main" }
   }
 
+
 kotlin {
-  linuxX64 { setup() }
-  macosX64 { setup() }
-  macosArm64 { setup() }
+  when (System.getProperty("os.name")) {
+    "Linux" -> linuxX64 { setup() }
+    "Mac OS X" -> when (System.getProperty("os.arch")) {
+      "aarch64" -> macosArm64 { setup() }
+      else -> macosX64 { setup() }
+    }
+  }
   
   sourceSets {
     val commonMain by getting {
