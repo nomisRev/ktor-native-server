@@ -39,15 +39,8 @@ kotlin {
   when (System.getProperty("os.name")) {
     "Linux" -> linuxX64 { setup() }
     "Mac OS X" -> when (System.getProperty("os.arch")) {
-      "aarch64" -> {
-        macosArm64 { setup() }
-        tasks.build.get().dependsOn(tasks.getByName("macosArm64Test"))
-      }
-      
-      else -> {
-        macosArm64 { setup() }
-        macosX64 { setup() }
-      }
+      "aarch64" -> macosArm64 { setup() }
+      else -> macosX64 { setup() }
     }
   }
   
