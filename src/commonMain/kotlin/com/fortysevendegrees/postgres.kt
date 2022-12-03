@@ -1,11 +1,11 @@
 package com.fortysevendegrees
 
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
-import arrow.fx.coroutines.Resource
+import arrow.fx.coroutines.ResourceScope
 import com.fortysevendegrees.sqldelight.NativePostgres
 
-fun postgres(config: Env.Postgres): Resource<NativePostgres> =
-  Resource({
+suspend fun ResourceScope.postgres(config: Env.Postgres): NativePostgres {
+  val driver = install({
     PostgresNativeDriver(
       host = config.host,
       port = config.port,
@@ -14,8 +14,7 @@ fun postgres(config: Env.Postgres): Resource<NativePostgres> =
       password = config.password
     )
   }) { driver, _ -> driver.close() }
-    .map { driver ->
-      NativePostgres(driver).also {
-        NativePostgres.Schema.create(driver).await()
-      }
-    }
+  return NativePostgres(driver).also {
+    NativePostgres.Schema.create(driver).await()
+  }
+}

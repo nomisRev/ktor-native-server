@@ -2,6 +2,7 @@ package com.fortysevendegrees
 
 import app.cash.sqldelight.db.use
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
+import arrow.fx.coroutines.resourceScope
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -25,7 +26,8 @@ class NativePostgresSpec : StringSpec({
   }
   
   "Postgres insert" {
-    postgres(Env.Postgres()).use { db ->
+    resourceScope {
+      val db = postgres(Env.Postgres())
       val userId = db.usersQueries.insertAndGetId(
         email = email,
         username = username,
