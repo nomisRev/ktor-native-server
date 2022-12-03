@@ -1,8 +1,6 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests
-import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
+import io.github.nomisrev.composeAroundTest
 
 @Suppress("DSL_SCOPE_VIOLATION") plugins {
-  id("com.avast.gradle.docker-compose") version "0.16.11"
   alias(libs.plugins.kotest.multiplatform)
   id(libs.plugins.kotlin.multiplatform.pluginId)
   id(libs.plugins.detekt.pluginId)
@@ -19,6 +17,7 @@ repositories {
 }
 
 setupDetekt()
+composeAroundTest()
 
 sqldelight {
   database("NativePostgres") {
@@ -41,10 +40,6 @@ kotlin {
     binaries {
       executable { entryPoint = "com.fortysevendegrees.main" }
     }
-  }
-  
-  tasks.withType<KotlinNativeTest>().forEach {
-    dockerCompose.isRequiredBy(it)
   }
   
   sourceSets {
