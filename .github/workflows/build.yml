@@ -32,6 +32,12 @@ jobs:
       - name: Install libpq
         run: brew install libpq
 
+      - name: Install docker on macOs
+        if: matrix.os == 'macos-latest'
+        run: |
+          brew install docker
+          colima start
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
