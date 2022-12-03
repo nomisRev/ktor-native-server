@@ -32,17 +32,14 @@ jobs:
       - name: Install libpq
         run: brew install libpq
 
-      - name: Install docker on macOs
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew install docker
-          colima start
-
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: 11
+
+      - name: Setup Postgres
+        uses: ikalnytskyi/action-setup-postgres@v3
 
       - name: build
         run: ./gradlew build

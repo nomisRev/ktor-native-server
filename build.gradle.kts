@@ -17,7 +17,6 @@ repositories {
 }
 
 setupDetekt()
-composeAroundTest()
 
 sqldelight {
   database("NativePostgres") {
