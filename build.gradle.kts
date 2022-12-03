@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests
+import io.github.nomisrev.composeAroundTest
 
 @Suppress("DSL_SCOPE_VIOLATION") plugins {
   alias(libs.plugins.kotest.multiplatform)
@@ -26,19 +26,18 @@ sqldelight {
   linkSqlite = false
 }
 
-
-fun KotlinNativeTargetWithHostTests.setup() =
-  binaries {
-    executable { entryPoint = "com.fortysevendegrees.main" }
-  }
-
-
 kotlin {
-  when (System.getProperty("os.name")) {
-    "Linux" -> linuxX64 { setup() }
+  when (val os = System.getProperty("os.name")) {
+    "Linux" -> linuxX64()
     "Mac OS X" -> when (System.getProperty("os.arch")) {
-      "aarch64" -> macosArm64 { setup() }
-      else -> macosX64 { setup() }
+      "aarch64" -> macosArm64()
+      else -> macosX64()
+    }
+    
+    else -> throw GradleException("Host OS ($os) is not supported for this project.")
+  }.apply {
+    binaries {
+      executable { entryPoint = "com.fortysevendegrees.main" }
     }
   }
   

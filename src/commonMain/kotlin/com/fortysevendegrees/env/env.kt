@@ -1,4 +1,4 @@
-package com.fortysevendegrees
+package com.fortysevendegrees.env
 
 import kotlinx.cinterop.toKString
 import platform.posix.getenv

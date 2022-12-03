@@ -1,5 +1,6 @@
 package com.fortysevendegrees
 
+import com.fortysevendegrees.routes.ping
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.ktor.client.request.get
@@ -12,9 +13,8 @@ class PingSpec : StringSpec({
   "ping route" {
     testApplication {
       application { routing { ping() } }
-      val response = client.get("/ping")
+      val response = client.get("/health")
       response.status shouldBe HttpStatusCode.OK
-      response.bodyAsText() shouldBe "pong"
     }
   }
 })
