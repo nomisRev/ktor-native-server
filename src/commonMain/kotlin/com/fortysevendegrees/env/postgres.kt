@@ -1,4 +1,4 @@
-package com.fortysevendegrees
+package com.fortysevendegrees.env
 
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
 import arrow.fx.coroutines.ResourceScope
