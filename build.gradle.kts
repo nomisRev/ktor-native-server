@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithHostTests
+import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 
 @Suppress("DSL_SCOPE_VIOLATION") plugins {
+  id("com.avast.gradle.docker-compose") version "0.16.11"
   alias(libs.plugins.kotest.multiplatform)
   id(libs.plugins.kotlin.multiplatform.pluginId)
   id(libs.plugins.detekt.pluginId)
@@ -33,11 +35,16 @@ kotlin {
       "aarch64" -> macosArm64()
       else -> macosX64()
     }
+    
     else -> throw GradleException("Host OS ($os) is not supported for this project.")
   }.apply {
     binaries {
       executable { entryPoint = "com.fortysevendegrees.main" }
     }
+  }
+  
+  tasks.withType<KotlinNativeTest>().forEach {
+    dockerCompose.isRequiredBy(it)
   }
   
   sourceSets {

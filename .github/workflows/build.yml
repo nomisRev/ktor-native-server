@@ -38,9 +38,6 @@ jobs:
           distribution: 'adopt'
           java-version: 11
 
-      - name: Setup Postgres
-        uses: ikalnytskyi/action-setup-postgres@v3
-
       - name: build
         run: ./gradlew build
 

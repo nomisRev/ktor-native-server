@@ -7,16 +7,14 @@ import io.ktor.server.engine.ApplicationEngine.Configuration
 import io.ktor.server.engine.ApplicationEngineFactory
 import io.ktor.server.engine.embeddedServer
 import kotlinx.coroutines.delay
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+
+private const val GRACE_PERIOD = 5000L
 
 suspend fun <Engine : ApplicationEngine, Config : Configuration> ResourceScope.server(
   factory: ApplicationEngineFactory<Engine, Config>,
   port: Int = 80,
   host: String = "0.0.0.0",
-  preWait: Duration = 30.seconds,
-  grace: Duration = 1.seconds,
-  timeout: Duration = 5.seconds,
   configure: Config.() -> Unit = {},
   module: Application.() -> Unit,
 ): Engine =
@@ -31,11 +29,12 @@ suspend fun <Engine : ApplicationEngine, Config : Configuration> ResourceScope.s
   }) { engine, _ ->
     if (!engine.environment.developmentMode) {
       engine.environment.log.info(
-        "Waiting for $preWait for Load Balancers & IP Tables to forgot us..., turn it off using io.ktor.development=true"
+        "Waiting for ${30.seconds} for Load Balancers & IP Tables to forgot us..., " +
+          "turn it off using io.ktor.development=true"
       )
-      delay(preWait)
+      delay(30.seconds)
     }
     println("Shutting down HTTP server...")
-    engine.stop(grace.inWholeMilliseconds, timeout.inWholeMilliseconds)
+    engine.stop(GRACE_PERIOD, GRACE_PERIOD)
     println("HTTP server shutdown!")
   }

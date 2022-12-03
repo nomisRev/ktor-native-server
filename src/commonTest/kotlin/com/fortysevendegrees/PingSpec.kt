@@ -13,9 +13,8 @@ class PingSpec : StringSpec({
   "ping route" {
     testApplication {
       application { routing { ping() } }
-      val response = client.get("/ping")
+      val response = client.get("/health")
       response.status shouldBe HttpStatusCode.OK
-      response.bodyAsText() shouldBe "pong"
     }
   }
 })
