@@ -41,6 +41,21 @@ class NativePostgresSpec : StringSpec({
       }
     }
   }
+
+  "authenticate" {
+    resourceScope {
+      val (driver, database) = postgres(Env.Postgres())
+      val id = driver.insertAndGetId(
+        "john.doe1@gmail.com",
+        "john.doe1",
+        "password1",
+        "I work at statefarm",
+        "https://i.stack.imgur.com/xHWG8.jpg",
+      )
+      requireNotNull(id) { "id should not be null" }
+      driver.authenticate("john.doe1", "password1") shouldBe "john.doe1"
+    }
+  }
 })
 
 suspend fun PostgresNativeDriver.insertAndGetId(
@@ -52,10 +67,10 @@ suspend fun PostgresNativeDriver.insertAndGetId(
 ): Long? = executeQuery(
   1495379018,
   """
-          INSERT INTO users (email, username, password, bio, image)
-          VALUES ($1, $2, crypt($3, gen_salt('bf')), $4, $5)
-          RETURNING id;
-        """.trimIndent(),
+  INSERT INTO users (email, username, password, bio, image)
+  VALUES ($1, $2, crypt($3, gen_salt('bf')), $4, $5)
+  RETURNING id;
+  """.trimIndent(),
   mapper = {
     it.next()
     it.getLong(0)
@@ -67,4 +82,24 @@ suspend fun PostgresNativeDriver.insertAndGetId(
   bindString(2, password)
   bindString(3, bio)
   bindString(4, image)
+}.await()
+
+suspend fun PostgresNativeDriver.authenticate(
+  username: String,
+  password: String
+): String? = executeQuery(
+  null,
+  """
+  SELECT username
+  FROM users
+  WHERE username = $1 AND password = crypt($2, password);
+  """.trimIndent(),
+  mapper = {
+    it.next()
+    it.getString(0)
+  },
+  parameters = 2
+) {
+  bindString(0, username)
+  bindString(1, password)
 }.await()
