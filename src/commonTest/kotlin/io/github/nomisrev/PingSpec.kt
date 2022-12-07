@@ -1,4 +1,4 @@
-package com.fortysevendegrees
+package io.github.nomisrev
 
 import io.github.nomisrev.routes.ping
 import io.kotest.core.spec.style.StringSpec

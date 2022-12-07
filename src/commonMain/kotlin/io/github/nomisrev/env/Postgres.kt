@@ -3,9 +3,9 @@ package io.github.nomisrev.env
 import app.cash.sqldelight.ColumnAdapter
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
 import arrow.fx.coroutines.ResourceScope
-import com.fortysevendegrees.Articles
-import com.fortysevendegrees.Tags
-import com.fortysevendegrees.sqldelight.NativePostgres
+import io.github.nomisrev.sqldelight.Articles
+import io.github.nomisrev.sqldelight.Tags
+import io.github.nomisrev.sqldelight.NativePostgres
 import io.github.nomisrev.repo.ArticleId
 import io.github.nomisrev.repo.UserId
 

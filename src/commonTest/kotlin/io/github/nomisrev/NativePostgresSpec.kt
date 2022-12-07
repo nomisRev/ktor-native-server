@@ -1,4 +1,4 @@
-package com.fortysevendegrees
+package io.github.nomisrev
 
 import app.cash.sqldelight.db.use
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
