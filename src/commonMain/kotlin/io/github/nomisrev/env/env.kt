@@ -1,4 +1,4 @@
-package com.fortysevendegrees.env
+package io.github.nomisrev.env
 
 import kotlinx.cinterop.toKString
 import platform.posix.getenv

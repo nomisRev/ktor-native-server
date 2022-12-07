@@ -1,11 +1,11 @@
-package com.fortysevendegrees
+package io.github.nomisrev
 
 import arrow.continuations.SuspendApp
 import arrow.fx.coroutines.resourceScope
-import com.fortysevendegrees.env.Env
-import com.fortysevendegrees.env.postgres
-import com.fortysevendegrees.env.server
-import com.fortysevendegrees.routes.ping
+import io.github.nomisrev.env.Env
+import io.github.nomisrev.env.postgres
+import io.github.nomisrev.env.server
+import io.github.nomisrev.routes.ping
 import io.ktor.server.cio.CIO
 import io.ktor.server.routing.routing
 import kotlinx.coroutines.awaitCancellation

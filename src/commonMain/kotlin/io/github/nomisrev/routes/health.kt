@@ -1,4 +1,4 @@
-package com.fortysevendegrees.routes
+package io.github.nomisrev.routes
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call

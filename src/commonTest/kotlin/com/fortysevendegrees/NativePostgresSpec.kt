@@ -3,15 +3,15 @@ package com.fortysevendegrees
 import app.cash.sqldelight.db.use
 import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
 import arrow.fx.coroutines.resourceScope
-import com.fortysevendegrees.env.Env
-import com.fortysevendegrees.env.postgres
+import io.github.nomisrev.env.Env
+import io.github.nomisrev.env.postgres
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
 class NativePostgresSpec : StringSpec({
 
-  afterTest {
+  beforeTest {
     val env = Env.Postgres()
     PostgresNativeDriver(
       host = env.host,
@@ -19,7 +19,7 @@ class NativePostgresSpec : StringSpec({
       user = env.user,
       database = env.databaseName,
       password = env.password
-    ).use { it.execute(null, "DROP TABLE IF EXISTS users;", parameters = 0) }
+    ).use { it.execute(null, "DROP TABLE IF EXISTS users CASCADE;", parameters = 0) }
   }
 
   "insertUser" {
