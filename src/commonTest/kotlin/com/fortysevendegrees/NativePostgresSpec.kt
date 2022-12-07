@@ -9,13 +9,8 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
-private const val email = "my-email@gmail.com"
-private const val username = "my-username"
-private const val bio = "my-bio"
-private const val image = "www.gravitar.com/my-username"
-
 class NativePostgresSpec : StringSpec({
-  
+
   afterTest {
     val env = Env.Postgres()
     PostgresNativeDriver(
@@ -26,23 +21,50 @@ class NativePostgresSpec : StringSpec({
       password = env.password
     ).use { it.execute(null, "DROP TABLE IF EXISTS users;", parameters = 0) }
   }
-  
-  "Postgres insert" {
+
+  "insertUser" {
     resourceScope {
-      val db = postgres(Env.Postgres())
-      val userId = db.usersQueries.insertAndGetId(
-        email = email,
-        username = username,
-        bio = bio,
-        image = image
-      ).executeAsOne()
-      val user = db.usersQueries.selectById(userId).executeAsOne()
-      assertSoftly {
-        user.email shouldBe email
-        user.username shouldBe username
-        user.image shouldBe image
-        user.bio shouldBe bio
+      val (driver, database) = postgres(Env.Postgres())
+      val id = driver.insertAndGetId(
+        "john.doe@gmail.com",
+        "john.doe",
+        "password",
+        "I work at statefarm",
+        "https://i.stack.imgur.com/xHWG8.jpg",
+      )
+      requireNotNull(id) { "id should not be null" }
+      assertSoftly(database.usersQueries.selectById(id).executeAsOne()) {
+        email shouldBe "john.doe@gmail.com"
+        username shouldBe "john.doe"
+        bio shouldBe "I work at statefarm"
+        image shouldBe "https://i.stack.imgur.com/xHWG8.jpg"
       }
     }
   }
 })
+
+suspend fun PostgresNativeDriver.insertAndGetId(
+  email: String,
+  username: String,
+  password: String,
+  bio: String,
+  image: String
+): Long? = executeQuery(
+  1495379018,
+  """
+          INSERT INTO users (email, username, password, bio, image)
+          VALUES ($1, $2, crypt($3, gen_salt('bf')), $4, $5)
+          RETURNING id;
+        """.trimIndent(),
+  mapper = {
+    it.next()
+    it.getLong(0)
+  },
+  parameters = 5
+) {
+  bindString(0, email)
+  bindString(1, username)
+  bindString(2, password)
+  bindString(3, bio)
+  bindString(4, image)
+}.await()

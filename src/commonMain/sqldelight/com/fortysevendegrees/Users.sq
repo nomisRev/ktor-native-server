@@ -2,14 +2,16 @@ CREATE TABLE IF NOT EXISTS users(
     id BIGSERIAL PRIMARY KEY,
     email VARCHAR(200) NOT NULL UNIQUE,
     username VARCHAR(100) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
     bio VARCHAR(1000) NOT NULL DEFAULT '',
     image VARCHAR(255) NOT NULL DEFAULT ''
 );
 
-insertAndGetId:
-INSERT INTO users(email, username, bio, image)
-VALUES (?, ?, ?, ?)
-RETURNING id;
+-- identifier = 1495379018 used for custom crypto query
+-- insertAndGetId:
+-- INSERT INTO users(email, username, password, bio, image)
+-- VALUES (?, ?, ?, ?, ?)
+-- RETURNING id;
 
 selectById:
 SELECT email, username, bio, image

@@ -4,7 +4,12 @@ import app.softwork.sqldelight.postgresdriver.PostgresNativeDriver
 import arrow.fx.coroutines.ResourceScope
 import com.fortysevendegrees.sqldelight.NativePostgres
 
-suspend fun ResourceScope.postgres(config: Env.Postgres): NativePostgres {
+data class Postgres(
+  val driver: PostgresNativeDriver,
+  val database: NativePostgres
+)
+
+suspend fun ResourceScope.postgres(config: Env.Postgres): Postgres {
   val driver = install({
     PostgresNativeDriver(
       host = config.host,
@@ -14,7 +19,9 @@ suspend fun ResourceScope.postgres(config: Env.Postgres): NativePostgres {
       password = config.password
     )
   }) { driver, _ -> driver.close() }
-  return NativePostgres(driver).also {
+  driver.execute(null, "CREATE EXTENSION IF NOT EXISTS pgcrypto;", 0)
+  val nativePostgres = NativePostgres(driver).also {
     NativePostgres.Schema.create(driver).await()
   }
+  return Postgres(driver, nativePostgres)
 }
