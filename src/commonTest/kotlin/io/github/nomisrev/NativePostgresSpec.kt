@@ -23,38 +23,42 @@ class NativePostgresSpec : StringSpec({
   }
 
   "insertUser" {
-    resourceScope {
-      val (driver, database) = postgres(Env.Postgres())
-      val id = driver.insertAndGetId(
-        "john.doe@gmail.com",
-        "john.doe",
-        "password",
-        "I work at statefarm",
-        "https://i.stack.imgur.com/xHWG8.jpg",
-      )
-      requireNotNull(id) { "id should not be null" }
-      assertSoftly(database.usersQueries.selectById(id).executeAsOne()) {
-        email shouldBe "john.doe@gmail.com"
-        username shouldBe "john.doe"
-        bio shouldBe "I work at statefarm"
-        image shouldBe "https://i.stack.imgur.com/xHWG8.jpg"
+    runCatching {
+      resourceScope {
+        val (driver, database) = postgres(Env.Postgres())
+        val id = driver.insertAndGetId(
+          "john.doe@gmail.com",
+          "john.doe",
+          "password",
+          "I work at statefarm",
+          "https://i.stack.imgur.com/xHWG8.jpg",
+        )
+        requireNotNull(id) { "id should not be null" }
+        assertSoftly(database.usersQueries.selectById(id).executeAsOne()) {
+          email shouldBe "john.doe@gmail.com"
+          username shouldBe "john.doe"
+          bio shouldBe "I work at statefarm"
+          image shouldBe "https://i.stack.imgur.com/xHWG8.jpg"
+        }
       }
-    }
+    }.getOrElse { it.printStackTrace(); throw it }
   }
 
   "authenticate" {
-    resourceScope {
-      val (driver, database) = postgres(Env.Postgres())
-      val id = driver.insertAndGetId(
-        "john.doe1@gmail.com",
-        "john.doe1",
-        "password1",
-        "I work at statefarm",
-        "https://i.stack.imgur.com/xHWG8.jpg",
-      )
-      requireNotNull(id) { "id should not be null" }
-      driver.authenticate("john.doe1", "password1") shouldBe "john.doe1"
-    }
+    runCatching {
+      resourceScope {
+        val (driver, database) = postgres(Env.Postgres())
+        val id = driver.insertAndGetId(
+          "john.doe1@gmail.com",
+          "john.doe1",
+          "password1",
+          "I work at statefarm",
+          "https://i.stack.imgur.com/xHWG8.jpg",
+        )
+        requireNotNull(id) { "id should not be null" }
+        driver.authenticate("john.doe1", "password1") shouldBe "john.doe1"
+      }
+    }.getOrElse { it.printStackTrace(); throw it }
   }
 })
 
