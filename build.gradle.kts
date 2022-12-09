@@ -9,7 +9,7 @@ import io.github.nomisrev.composeAroundTest
   alias(libs.plugins.sqldelight)
 }
 
-group = "com.fortysevendegrees"
+group = "io.github.nomisrev"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -21,7 +21,7 @@ setupDetekt()
 sqldelight {
   database("NativePostgres") {
     dialect(libs.postgres.native.dialect.get())
-    packageName = "com.fortysevendegrees.sqldelight"
+    packageName = "io.github.nomisrev.sqldelight"
   }
   linkSqlite = false
 }
@@ -37,7 +37,7 @@ kotlin {
     else -> throw GradleException("Host OS ($os) is not supported for this project.")
   }.apply {
     binaries {
-      executable { entryPoint = "com.fortysevendegrees.main" }
+      executable { entryPoint = "io.github.nomisrev.main" }
     }
   }
   

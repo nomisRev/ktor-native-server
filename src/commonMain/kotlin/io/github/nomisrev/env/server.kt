@@ -1,4 +1,4 @@
-package com.fortysevendegrees.env
+package io.github.nomisrev.env
 
 import arrow.fx.coroutines.ResourceScope
 import io.ktor.server.application.Application
