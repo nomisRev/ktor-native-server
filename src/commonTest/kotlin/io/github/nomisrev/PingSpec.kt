@@ -1,10 +1,9 @@
-package com.fortysevendegrees
+package io.github.nomisrev
 
-import com.fortysevendegrees.routes.ping
+import io.github.nomisrev.routes.ping
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.routing.routing
 import io.ktor.server.testing.testApplication
