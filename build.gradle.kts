@@ -19,11 +19,13 @@ repositories {
 setupDetekt()
 
 sqldelight {
-  database("NativePostgres") {
-    dialect(libs.postgres.native.dialect.get())
-    packageName = "com.fortysevendegrees.sqldelight"
+  databases {
+    create("NativePostgres") {
+      packageName.set("com.fortysevendegrees.sqldelight")
+      dialect(libs.postgres.native.dialect.get())
+    }
   }
-  linkSqlite = false
+  linkSqlite.set(false)
 }
 
 kotlin {

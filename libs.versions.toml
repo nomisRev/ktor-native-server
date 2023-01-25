@@ -9,6 +9,7 @@ ktor = "2.2.2"
 sqldelight="2.0.0-alpha05"
 suspendapp="0.3.1"
 postgres-native="0.0.6"
+postgres-native-dialect="0.0.5"
 testcontainers = "1.17.6"
 
 [libraries]
@@ -36,7 +37,7 @@ ktor-server-html = { module = "io.ktor:ktor-server-html-builder", version.ref = 
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 postgres-native-driver = { module = "app.softwork:postgres-native-sqldelight-driver", version.ref = "postgres-native" }
-postgres-native-dialect = { module = "app.softwork:postgres-native-sqldelight-dialect", version.ref = "postgres-native" }
+postgres-native-dialect = { module = "app.softwork:postgres-native-sqldelight-dialect", version.ref = "postgres-native-dialect" }
 testcontainers = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
 
 [bundles]
