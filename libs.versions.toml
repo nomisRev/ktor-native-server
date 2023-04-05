@@ -1,7 +1,7 @@
 [versions]
 arrow = "1.1.5"
 coroutines = "1.6.4"
-kotlin = "1.8.10"
+kotlin = "1.8.20"
 kotest = "5.5.5"
 kover = "0.6.1"
 detekt = "1.22.0"
@@ -10,7 +10,7 @@ sqldelight="2.0.0-alpha05"
 suspendapp="0.4.0"
 postgres-native="0.0.7"
 postgres-native-dialect="0.0.7"
-testcontainers = "1.17.6"
+testcontainers = "1.18.0"
 
 [libraries]
 arrow-fx = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
