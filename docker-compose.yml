@@ -2,7 +2,7 @@
 services:
 
   postgres:
-    image: postgres:15.3-alpine
+    image: postgres:16.0-alpine
     hostname: postgres
     ports:
       - "5432:5432"
