@@ -1,31 +1,14 @@
-import io.github.nomisrev.composeAroundTest
-
 @Suppress("DSL_SCOPE_VIOLATION") plugins {
-  alias(libs.plugins.kotest.multiplatform)
-  id(libs.plugins.kotlin.multiplatform.pluginId)
-  id(libs.plugins.detekt.pluginId)
+  alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.kover)
   alias(libs.plugins.kotlinx.serialization)
-  alias(libs.plugins.sqldelight)
 }
 
-group = "com.fortysevendegrees"
+group = "org.jetbrains"
 version = "1.0-SNAPSHOT"
 
 repositories {
   mavenCentral()
-}
-
-setupDetekt()
-
-sqldelight {
-  databases {
-    create("NativePostgres") {
-      packageName.set("com.fortysevendegrees.sqldelight")
-      dialect(libs.postgres.native.dialect.get())
-    }
-  }
-  linkSqlite.set(false)
 }
 
 kotlin {
@@ -39,7 +22,7 @@ kotlin {
     else -> throw GradleException("Host OS ($os) is not supported for this project.")
   }.apply {
     binaries {
-      executable { entryPoint = "com.fortysevendegrees.main" }
+      executable { entryPoint = "org.jetbrains.main" }
     }
   }
   
@@ -48,14 +31,14 @@ kotlin {
       dependencies {
         implementation(libs.arrow.fx)
         implementation(libs.suspendapp)
+        implementation(libs.suspendapp.ktor)
         implementation(libs.bundles.ktor.server)
-        implementation(libs.postgres.native.driver)
       }
     }
     
     val commonTest by getting {
       dependencies {
-        implementation(libs.bundles.kotest)
+        implementation(kotlin("test"))
         implementation(libs.ktor.server.tests)
       }
     }

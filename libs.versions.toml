@@ -1,31 +1,25 @@
 [versions]
-arrow = "1.1.5"
-coroutines = "1.7.1"
-kotlin = "1.8.21"
-kotest = "5.6.2"
+arrow = "2.2.0"
+coroutines = "1.10.2"
+kotlin = "2.2.21"
 kover = "0.7.0"
-detekt = "1.23.0"
-ktor = "2.3.0"
-sqldelight="2.0.0-alpha05"
-suspendapp="0.4.0"
-postgres-native="0.0.7"
-postgres-native-dialect="0.0.7"
+ktor = "3.3.3"
+sqldelight="2.2.1"
+postgres-native="0.0.11"
+postgres-native-dialect="0.0.11"
 testcontainers = "1.18.1"
 
 [libraries]
 arrow-fx = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
-suspendapp = { module = "io.arrow-kt:suspendapp", version.ref = "suspendapp" }
+suspendapp = { module = "io.arrow-kt:suspendapp", version.ref = "arrow" }
+suspendapp-ktor = { module = "io.arrow-kt:suspendapp-ktor", version.ref = "arrow" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
-kotest-assertionsCore = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-kotest-frameworkEngine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
-kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
-kotest-runnerJUnit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 ktor-server-defaultheaders = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor" }
 ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
-ktor-server-tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
+ktor-server-tests = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
 ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -35,7 +29,6 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-html = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 postgres-native-driver = { module = "app.softwork:postgres-native-sqldelight-driver", version.ref = "postgres-native" }
 postgres-native-dialect = { module = "app.softwork:postgres-native-sqldelight-dialect", version.ref = "postgres-native-dialect" }
 testcontainers = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
@@ -52,16 +45,8 @@ ktor-client = [
     "ktor-client-content-negotiation",
     "ktor-client-serialization"
 ]
-kotest = [
-    "kotest-assertionsCore",
-    "kotest-frameworkEngine",
-    "kotest-property",
-]
 
 [plugins]
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
-kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
