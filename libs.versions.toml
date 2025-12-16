@@ -7,7 +7,7 @@ ktor = "3.3.3"
 sqldelight="2.2.1"
 postgres-native="0.0.11"
 postgres-native-dialect="0.0.11"
-testcontainers = "1.18.1"
+testcontainers = "2.0.3"
 
 [libraries]
 arrow-fx = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
